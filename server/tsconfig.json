@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonJS",
+    "allowJs": true,
+    "outDir": "build",
+    "rootDir": ".",
+    "strict": false,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "esModuleInterop": true,
+    "typeRoots": [".node_modules/@types"],
+    "baseUrl": ".",
+    "resolveJsonModule": true
+  },
+  "allowSyntheticDefaultImports": true,
+  "typeAcquisition": {
+    "enable": false
+  },
+  "include": ["./**/*"],
+  "exclude": ["node_modules", ".env", "./data/*"]
+}
