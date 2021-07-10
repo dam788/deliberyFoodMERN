@@ -56,25 +56,25 @@ const AddForm = () => {
     return (
         <DivForm>
             <AgregaForm>
-             <AddLabel htmlFor="product">Producto
-             <AddInput id='product' type="text" />
-                </AddLabel>
-            <AddLabel htmlFor="img">Imagen
-            <AddInput type="file" id="img"  /></AddLabel>
-           
-            <AddLabel htmlFor="price">Precio
-            <AddInput type="number" id="price" /></AddLabel>
-           
-           
-            <AddLabel htmlFor="description">Descripcion
-            <AddInput type="text" id="description" /></AddLabel>
-           
-            <AddLabel htmlFor="category">Categoria
-            <AddSelect>
-            <option value='0' id="category">Nombre</option> 
-            </AddSelect>
-           </AddLabel>
-           <AddButton type='submit'>Agregar producto</AddButton>
+                <AddLabel htmlFor="product">Producto
+                <AddInput id='product' type="text" />
+                    </AddLabel>
+                <AddLabel htmlFor="img">Imagen
+                <AddInput type="file" id="img"  /></AddLabel>
+            
+                <AddLabel htmlFor="price">Precio
+                <AddInput type="number" id="price" /></AddLabel>
+            
+            
+                <AddLabel htmlFor="description">Descripcion
+                <AddInput type="text" id="description" /></AddLabel>
+            
+                <AddLabel htmlFor="category">Categoria
+                <AddSelect>
+                <option value='0' id="category">Nombre</option> 
+                </AddSelect>
+            </AddLabel>
+            <AddButton type='submit'>Agregar producto</AddButton>
             </AgregaForm>
         </DivForm>
     )
