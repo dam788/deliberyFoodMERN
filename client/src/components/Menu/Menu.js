@@ -27,8 +27,8 @@ const Separator = styled.hr`
 export const Menu = ({ setOpenFood }) => {
   const [section, setSection] = useState(null);
   let Foods = useSelector((state) => state.products.foods);
-  const categories = useSelector((state) => state.categories.foods);
-
+  const categories = useSelector((state) => state.categories.categories);
+ 
   if (section) {
     Foods = Foods.filter((food) => food.section === section);
   }
@@ -46,7 +46,7 @@ export const Menu = ({ setOpenFood }) => {
           )}
 
           {categories.map((category) => (
-            <TagCard key={category.section} onClick={() => setSection(category.section)}>
+            <TagCard key={category._id} onClick={() => setSection(category.section)}>
               <TagImg img={category.imgTag} />
               <p>{category.section}</p>
             </TagCard>

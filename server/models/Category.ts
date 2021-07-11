@@ -1,12 +1,12 @@
 import mongoose,{Document} from 'mongoose';
 
 export interface ICategory extends Document {
-  category: string;
+  section: string;
   icon?: string
 }
 
 const categorySchema = new mongoose.Schema<ICategory>({
-  category: {
+  section: {
     type: String,
     required: true,
   },
