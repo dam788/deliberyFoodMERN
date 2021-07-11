@@ -9,6 +9,7 @@ import { Home, Checkout, Login, Register } from './routes';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './redux/products/products-action';
+import { fetchCategories } from './redux/categories/categories-action';
 import AddProduct from './routes/AddProduct';
 
 function App() {
@@ -19,9 +20,15 @@ function App() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  const loadCategories = useCallback(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+
   useEffect(() => {
     loadProducts();
-  }, [loadProducts]);
+    loadCategories();
+  }, [loadProducts,loadCategories]);
 
   return (
     <>
