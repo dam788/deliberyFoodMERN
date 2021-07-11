@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ShoppingIcon } from '../../assets/cart-icon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCartHidden } from '../../redux/cart/cart-action';
+import {orange} from '../../Styles/colors'
 
 const CartIconStyled = styled.div`
   transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -23,8 +23,13 @@ const ItemCount = styled.span`
   position: absolute;
   font-size: 10px;
   font-weight: bold;
-  bottom: 12px;
+  bottom: 15px;
 `;
+
+const IconBadge = styled.i`
+  font-size: 25px;
+  color: ${orange};
+`
 
 export const CartIcon = () => {
   const dispatch = useDispatch();
@@ -42,7 +47,7 @@ export const CartIcon = () => {
   return (
     <div>
       <CartIconStyled onClick={handlerToggle}>
-        <ShoppingIcon style={{ style: '24px', height: '24px' }} />
+        <IconBadge className="fi-rs-shopping-bag"></IconBadge>
         <ItemCount>{quantity}</ItemCount>
       </CartIconStyled>
     </div>
