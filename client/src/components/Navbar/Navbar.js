@@ -4,7 +4,7 @@ import imgLogo from '../../assets/logo.svg';
 import { CartIcon } from '../Cart/CartIcon';
 import { Link } from 'react-router-dom';
 import { User } from '../User/User';
-import {Admin} from '../Admin/Admin'
+import {AddProduct} from '../addProduct/AddProduct'
 
 const NavbarStyled = styled.div`
   display: flex;
@@ -34,6 +34,7 @@ const NaviagationMenu = styled.nav`
   padding: 15px;
   align-self: flex-end;
   margin: 0 12px;
+  align-items: center;
 `;
 
 export const Navbar = () => {
@@ -44,8 +45,8 @@ export const Navbar = () => {
           <Logo src={imgLogo} />
         </Link>
         <NaviagationMenu>
-        <Link to="/addprod">
-            <Admin />
+        <Link to="/addproduct">
+            <AddProduct />
           </Link>
           <CartIcon />
           <Link to="/login">

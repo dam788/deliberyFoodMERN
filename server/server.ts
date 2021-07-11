@@ -5,7 +5,7 @@ import morgan from 'morgan';
 
 import { notFound, errorHandler } from './middlewares/errorMiddlewares';
 import productsRoute from './routes/productRoutes';
-import addProductRoute from './routes/addProductRoutes';
+import categoriesRoute from './routes/categoryRoutes';
 
 //configs
 dotenv.config();
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // routes middlewares
 app.use('/api/products', productsRoute);
-app.use('/api/add', addProductRoute)
+app.use('/api/categories', categoriesRoute)
 
 // errors middleware
 app.use(notFound);

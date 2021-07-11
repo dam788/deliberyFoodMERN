@@ -13,7 +13,7 @@ const categorySchema = new mongoose.Schema<ICategory>({
   icon: {
     name: String,
     image: Buffer,
-  },
+  }
 });
 
 export default mongoose.model<ICategory>('Category', categorySchema);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ENDPOINT_CATEGORIES = '/api/add';
+const ENDPOINT_CATEGORIES = '/api/categories';
 export const CATEGORIES_REQUEST = 'CATEGORIES_REQUEST';
 export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
 export const CATEGORIES_FAIL = 'CATEGORIES_FAIL';
