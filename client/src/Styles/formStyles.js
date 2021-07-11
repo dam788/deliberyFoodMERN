@@ -45,6 +45,19 @@ padding: 5px;
 border-radius: 4px;
 `;
 
+export const FileForm = styled(InputForm)`
+border: 1px solid transparent;
+`;
+
+export const TextareaForm = styled.textarea`
+width: 319px;
+margin: 5px 10px;
+height: 50px;
+border: 1px solid lightgray;
+padding: 5px;
+border-radius: 4px;
+`;
+
 export const FormButton = styled.button`
 transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
 background: linear-gradient(135deg, ${orange} 0%, ${magenta} 100%);
@@ -55,6 +68,7 @@ border: none;
 border-radius: 4px;
 color: white;
 cursor: pointer;
+font-weight: bolder;
 &:hover {
   filter: saturate(1.2);
   box-shadow: 0 3px 7px 0 rgb(0 0 0 / 9%);

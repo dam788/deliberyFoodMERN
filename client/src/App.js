@@ -42,7 +42,7 @@ function App() {
           <Route path="/checkout" component={Checkout} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/addprod" component={AddProduct} />
+          <Route path="/addproduct" component={AddProduct} />
         </Switch>
       </Router>
     </>
