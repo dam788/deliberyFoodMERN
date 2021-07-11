@@ -96,7 +96,7 @@ export const Register = () => {
   return (
     <>
       <ContainerForm onSubmit={handleSubmit}>
-        <TitleForm>Registrarse</TitleForm>
+        <TitleForm>Nuevo Usuario</TitleForm>
         <BoxForm>
           <LabelForm htmlFor="name">Nombre</LabelForm>
           <InputForm
@@ -130,7 +130,7 @@ export const Register = () => {
             name="password2"
           />
 
-          <FormButton>Enviar</FormButton>
+          <FormButton>Registrarme!</FormButton>
         </BoxForm>
 
         <Box>

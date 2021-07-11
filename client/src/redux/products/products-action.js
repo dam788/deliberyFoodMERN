@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const ENDPOINT_PRODUCTS = '/api/products';
-export const PRODUCTS_REQUEST = 'FETCH_MENU_REQUEST';
-export const PRODUCTS_SUCCESS = 'FETCH_MENU_SUCCESS';
-export const PRODUCTS_FAIL = 'FETCH_MENU_FAILURE';
+export const PRODUCTS_REQUEST = 'PRODUCTS_REQUEST';
+export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
+export const PRODUCTS_FAIL = 'PRODUCTS_FAIL';
 
 export const productsRequest = () => {
   return {

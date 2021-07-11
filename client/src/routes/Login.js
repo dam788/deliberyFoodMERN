@@ -97,7 +97,7 @@ export const Login = () => {
 
         <Box>
           <BoxSapan>
-            Si necesitás una cuenta, click en
+            Si no tenés una cuenta, click en
             <Link to="/register">
               <BoldSapan> Registrarme!</BoldSapan>
             </Link>
