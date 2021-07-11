@@ -6,23 +6,22 @@ export const getAllCategories = asyncHandler(
     async (req: Request, res: Response): Promise<void> => {
       const category = await Category.find({});
       res.json(category);
-      console.log(category);
     }
   );
   
   export const postNewCategory = asyncHandler(
     async (req: Request, res: Response): Promise<void> => {
-      const { category, icon } = req.body;
+      const { section, icon } = req.body;
   
-      const userExists = await Category.findOne({ category });
+      const categoryExists = await Category.findOne({ section });
   
-      if (userExists) {
+      if (categoryExists) {
         res.status(400);
         throw new Error('Category already exists');
       }
   
       const newCategory = await Category.create({
-        category,
+        section,
         icon,
       });
       console.log(newCategory);
