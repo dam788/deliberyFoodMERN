@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ContainerForm,
   TitleForm,
@@ -12,6 +12,7 @@ import {
   ErrorMessageForm,
 } from '../Styles/formStyles';
 import { useSelector } from 'react-redux';
+import { capitalizeAll, capitalizeOne } from '../utils/capitalize';
 
 const AddProduct = () => {
   const categories = useSelector((state) => state.categories.categories);
@@ -35,17 +36,65 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { name, img, price, description, category } = input;
 
     // validar nombre
+    if (name.length < 2 || name.length > 20) {
+      setErrorMsg('El nombre debe tener entre 2 y 20 carácteres');
+      return setError(true);
+    }
 
     // validar imagen
+    if (img === '') {
+      setErrorMsg('Debe cargar una imagen de producto');
+      return setError(true);
+    }
 
     // validar precio
+    if (price === '') {
+      setErrorMsg('El precio no debe estar vacío');
+      return setError(true);
+    }
 
     // validar descripcion
+    if (description.length < 6 || description.length > 140) {
+      setErrorMsg('La descripción debe tener entre 6 y 140 carácteres');
+      return setError(true);
+    }
 
     // validar categoria
+    if (category === '') {
+      setErrorMsg('Categoría no debe estar vacío');
+      return setError(true);
+    }
+
+    // capitalize
+    let capitalizeCategory = capitalizeAll(category);
+    let nameCapitalize = capitalizeAll(name);
+    let descriptionCapitalize = capitalizeOne(description);
+    setInput({
+      ...input,
+      name: nameCapitalize,
+      category: capitalizeCategory,
+      description: descriptionCapitalize,
+    });
+
+    // si pasa todo esto...
+    setError(false);
+    setErrorMsg('');
+
+    setSubmit(input);
   };
+
+  console.log(submit);
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+    }
+  }, [error]);
 
   return (
     <>
@@ -80,7 +129,12 @@ const AddProduct = () => {
           />
 
           <LabelForm htmlFor="category">Categoría</LabelForm>
-          <InputForm type="text" list="category" onChange={handleChange} />
+          <InputForm
+            type="text"
+            list="category"
+            onChange={handleChange}
+            name="category"
+          />
           <datalist id="category">
             {categories.map(({ section }, key) => (
               <option key={key} value={section} />
