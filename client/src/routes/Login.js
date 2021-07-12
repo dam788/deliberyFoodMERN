@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
   ContainerForm,
   TitleForm,
@@ -13,7 +13,7 @@ import {
   ErrorMessageForm
 } from '../Styles/formStyles';
 
-export const Login = () => {
+ const Login = ({activeUser, setActiveUser, user, setUser, history}) => {
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -59,6 +59,10 @@ export const Login = () => {
       ...input,
       error: '',
     });
+    setActiveUser(true)
+    setUser(input)
+console.log(user);
+history.push('/');
 
     setSubmit(input);
   };
@@ -69,6 +73,9 @@ export const Login = () => {
          setError(false);
       }, 3000);
     }
+    
+
+    
   }, [error]);
 
   return (
@@ -108,3 +115,6 @@ export const Login = () => {
     </>
   );
 };
+
+
+export default withRouter(Login)

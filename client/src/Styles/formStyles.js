@@ -96,7 +96,7 @@ font-weight: bolder;
 export const ErrorMessageForm = styled.span`
   background-color: ${magenta};
   color: ${white};
-  padding: 3px;
+  padding: 8px;
   font-size: 12px;
   display: flex;
   justify-content: center;
