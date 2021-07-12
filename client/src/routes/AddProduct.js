@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ContainerForm,
   TitleForm,
@@ -12,6 +12,7 @@ import {
   ErrorMessageForm,
 } from '../Styles/formStyles';
 import { useSelector } from 'react-redux';
+import { capitalizeAll, capitalizeOne } from '../utils/capitalize';
 
 const AddProduct = () => {
   const categories = useSelector((state) => state.categories.categories);
@@ -40,70 +41,62 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { name, img, price, description, category } = input;
 
     // validar nombre
-    if(name.trim() === ''){
-     setProduct({
-       ...product,
-       error: 'Debes ingresar un nombre'
-     })
-      return setError(true)
+    if (name.length < 2 || name.length > 20) {
+      setErrorMsg('El nombre debe tener entre 2 y 20 carácteres');
+      return setError(true);
     }
 
     // validar imagen
-    if(img.trim() === ''){
-      setProduct({
-        ...product,
-        error: 'Debes ingresar una imagen'
-      })
-       return setError(true)
-     }
-     console.log(img);
+    if (img === '') {
+      setErrorMsg('Debe cargar una imagen de producto');
+      return setError(true);
+    }
 
     // validar precio
-    if(price.trim() === ''){
-      setProduct({
-        ...product,
-        error: 'Debes ingresar un precio para el producto'
-      })
-       return setError(true)
-     }
+    if (price === '') {
+      setErrorMsg('El precio no debe estar vacío');
+      return setError(true);
+    }
 
     // validar descripcion
-    if(description.trim() === ''){
-      setProduct({
-        ...product,
-        error: 'Debes ingresar una descripcion'
-      })
-       return setError(true)
-     }
+    if (description.length < 6 || description.length > 140) {
+      setErrorMsg('La descripción debe tener entre 6 y 140 carácteres');
+      return setError(true);
+    }
 
     // validar categoria
-    // if(category.trim() === ''){
-    //   setProduct({
-    //     ...product,
-    //     error: 'Debes ingresar una categoria'
-    //   })
-    //    return setError(true)
-    //  }
+    if (category === '') {
+      setErrorMsg('Categoría no debe estar vacío');
+      return setError(true);
+    }
 
-     setProduct({
-      name,
-      img,
-      price,
-      description,
-      category,
-      error: ''
-     })
-     console.log(`Paso todo: `, product);
+    // capitalize
+    let capitalizeCategory = capitalizeAll(category);
+    let nameCapitalize = capitalizeAll(name);
+    let descriptionCapitalize = capitalizeOne(description);
+    setInput({
+      ...input,
+      name: nameCapitalize,
+      category: capitalizeCategory,
+      description: descriptionCapitalize,
+    });
 
-   
+    // si pasa todo esto...
+    setError(false);
+    setErrorMsg('');
+
+    setSubmit(input);
   };
 
+  console.log(submit);
+
   useEffect(() => {
-    if(error){
+    if (error) {
       setTimeout(() => {
-         setError(false);
+        setError(false);
       }, 3000);
     }
   }, [error]);
@@ -142,7 +135,12 @@ const AddProduct = () => {
           />
 
           <LabelForm htmlFor="category">Categoría</LabelForm>
-          <InputForm type="text" list="category" onChange={handleChange} />
+          <InputForm
+            type="text"
+            list="category"
+            onChange={handleChange}
+            name="category"
+          />
           <datalist id="category">
             {categories.map(({ section }, key) => (
               <option key={key} value={section} />
