@@ -26,6 +26,7 @@ const AddProduct = () => {
   const [submit, setSubmit] = useState({});
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [pressKey, setPressKey] = useState(false)
 
   const handleChange = ({ target }) => {
     setInput({
@@ -85,8 +86,19 @@ const AddProduct = () => {
 
     setSubmit(input);
   };
-
   console.log(submit);
+
+  const handleKeyPress = (e) => {
+    if(e.type === "keypress"){
+      setPressKey(true);
+    }
+  }
+
+  const handleKeyUp = (e) => {
+    if(e.code === "Backspace"){
+      setPressKey(false);
+    }
+  }
 
   useEffect(() => {
     if (error) {
@@ -133,6 +145,8 @@ const AddProduct = () => {
             type="text"
             list="category"
             onChange={handleChange}
+            onKeyPress={handleKeyPress}
+            onKeyUp={handleKeyUp}
             name="category"
           />
           <datalist id="category">
@@ -140,6 +154,16 @@ const AddProduct = () => {
               <option key={key} value={section} />
             ))}
           </datalist>
+          {
+            pressKey &&
+            (
+              <>
+                <LabelForm htmlFor="imgSection">Imagen Categoría</LabelForm>
+                <FileForm id="imgSection" type="file" onChange={handleChange} name="imgSection" />
+              </>
+            )
+            
+          }
 
           <FormButton>Agregar</FormButton>
         </BoxForm>
