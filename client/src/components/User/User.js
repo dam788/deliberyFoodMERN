@@ -30,11 +30,11 @@ export const UserNav = styled.div`
   }
 `;
 
-export const User = () => {
+export const User = ({ruteo}) => {
   return (
     <>
       <UserNav>
-        <p>Ingresar</p>
+        <p>{ruteo}</p>
         <i className="fi-rs-user"></i>
       </UserNav>
     </>

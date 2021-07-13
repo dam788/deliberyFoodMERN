@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import imgLogo from '../../assets/logo.svg';
 import { CartIcon } from '../Cart/CartIcon';
-import { Link } from 'react-router-dom';
-import { User } from '../User/User';
-import {AddProduct} from '../addProduct/AddProduct'
+import { Link, withRouter } from 'react-router-dom';
+import { User, UserNav } from '../User/User';
+import { AddProduct } from '../addProduct/AddProduct';
 
 const NavbarStyled = styled.div`
   display: flex;
@@ -37,7 +37,27 @@ const NaviagationMenu = styled.nav`
   align-items: center;
 `;
 
-export const Navbar = () => {
+const Navbar = ({ history, activeUser, setActiveUser, user, setUser }) => {
+ console.log(user);
+ 
+  const LinkButton =
+    history.location.pathname === '/login' ? (
+      <Link to="/">
+        <User ruteo={'Home'} />
+      </Link>
+    ) : (
+      <Link to="/login">
+        <User ruteo={'Login'} />
+      </Link>
+    );
+
+
+  const cerrarSesion = () => {
+    setActiveUser(false);
+    localStorage.removeItem('usuario')
+    history.push('/login');
+  };
+
   return (
     <>
       <NavbarStyled>
@@ -45,15 +65,26 @@ export const Navbar = () => {
           <Logo src={imgLogo} />
         </Link>
         <NaviagationMenu>
-        <Link to="/addproduct">
-            <AddProduct />
-          </Link>
-          <CartIcon />
-          <Link to="/login">
-            <User />
-          </Link>
+          {activeUser ? (
+            <>
+            {
+              user.isAdmin &&  <Link to="/addproduct">
+                <AddProduct />
+              </Link>
+            }
+             
+              <p>hola, {user.nombre}</p>
+              <CartIcon />
+
+              <UserNav onClick={cerrarSesion}>X</UserNav>
+            </>
+          ) : (
+            LinkButton
+          )}
         </NaviagationMenu>
       </NavbarStyled>
     </>
   );
 };
+
+export default withRouter(Navbar);

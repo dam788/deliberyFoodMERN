@@ -78,6 +78,12 @@ font-weight: bolder;
 }
 `;
 
+export const LogOrRegButton = styled(FormButton)`
+background: none;
+width: max-content;
+padding: .5em;
+`
+
 export const BoxSapan = styled.span`
 margin-top: 20px;
 color: ${gray};

@@ -41,7 +41,7 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, img, price, description, category } = input;
+    // const { name, img, price, description, category } = input;
 
     // validar nombre
     if (name.length < 2 || name.length > 20) {
@@ -77,8 +77,8 @@ const AddProduct = () => {
     let capitalizeCategory = capitalizeAll(category);
     let nameCapitalize = capitalizeAll(name);
     let descriptionCapitalize = capitalizeOne(description);
-    setInput({
-      ...input,
+    setProduct({
+      ...product,
       name: nameCapitalize,
       category: capitalizeCategory,
       description: descriptionCapitalize,
@@ -88,7 +88,7 @@ const AddProduct = () => {
     setError(false);
     setErrorMsg('');
 
-    setSubmit(input);
+    setSubmit(product);
   };
 
   console.log(submit);

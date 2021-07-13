@@ -28,6 +28,7 @@ export const Menu = ({ setOpenFood }) => {
   const [section, setSection] = useState(null);
   let Foods = useSelector((state) => state.products.foods);
   const categories = useSelector((state) => state.categories.categories);
+  console.log(categories);
  
   if (section) {
     Foods = Foods.filter((food) => food.section === section);
