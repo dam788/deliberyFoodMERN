@@ -68,3 +68,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+<!-- 
+const handleCheckout = async () => {
+    let orderData = {cartItemsData};
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const endpoint = await axios.post("api/pay/create_preference", config)
+
+    // dispatch({payload: orderData})      
+    .then(function (response) {
+      history.push(response.endpoint.init_point);
+      // return response.json()
+    });
+  }; -->

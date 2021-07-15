@@ -13,6 +13,8 @@ import { fetchCategories } from './redux/categories/categories-action';
 import AddProduct from './routes/AddProduct';
 
 function App() {
+
+  // console.log(process.env.REACT_APP_MP_ACCESS_TOKEN)
   const [activeUser, setActiveUser] = useState(false);
   const [user, setUser] = useState({})
 

@@ -14,7 +14,7 @@ function cartReducer(state = INITIAL_STATE, { type, payload }) {
         hidden: !state.hidden,
       };
     case ADD_ITEM:
-      console.log(state.cartItems);
+      // console.log(state.cartItems);
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, payload),

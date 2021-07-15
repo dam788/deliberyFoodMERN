@@ -89,12 +89,14 @@ export const Orders = () => {
   const dispatch = useDispatch();
   const hidden = useSelector((state) => state.cart.hidden);
   const cartItems = useSelector((state) => state.cart.cartItems);
+  
   const total = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);
   const handlerToggle = () => dispatch(cartActions.toggleCartHidden());
   const style = { display: 'flex', width: '100%' };
 
+  console.log(cartItems)
   return (
     <>
       {hidden && <DialogShadow onClick={handlerToggle} />}
