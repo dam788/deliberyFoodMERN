@@ -5,8 +5,7 @@ import { H1 } from '../../Styles/Title';
 import { formatPrice } from '../../utils/formatPrice';
 import { Food, FoodGrid, FoodLabel } from './FoodGrid';
 import { useSelector } from 'react-redux';
-import { TagImg, TagsMenu, TagCard } from './MenuTags';
-import { filterCategory } from '../../utils/filterCategory';
+import { TagsMenu, TagCard } from './MenuTags';
 
 const MenuStyled = styled.div`
   padding: 20px 20px;
@@ -28,12 +27,7 @@ const Separator = styled.hr`
 export const Menu = ({ setOpenFood }) => {
   const [section, setSection] = useState(null);
   let Foods = useSelector((state) => state.products.foods);
-  // const categories = useSelector((state) => state.categories.categories);
-  const categories = useSelector((state) => state.products.foods);
-
-  console.log(categories)
-
-  const filtrarCategorias = filterCategory(Foods, categories)
+  const categories = useSelector((state) => state.categories.categories);
 
   if (section) {
     Foods = Foods.filter((food) => food.section === section);
@@ -45,7 +39,7 @@ export const Menu = ({ setOpenFood }) => {
         <TagsMenu>
           <h3>Filtro</h3>
 
-          {filtrarCategorias && (
+          {section && (
             <TagCard onClick={() => setSection(null)}>
               <p>Todo</p>
             </TagCard>
@@ -53,7 +47,6 @@ export const Menu = ({ setOpenFood }) => {
 
           {categories.map((category) => (
             <TagCard key={category._id} onClick={() => setSection(category.section)}>
-              <TagImg img={category.imgTag} />
               <p>{category.section}</p>
             </TagCard>
           ))}

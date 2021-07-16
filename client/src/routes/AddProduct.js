@@ -3,7 +3,6 @@ import {
   ContainerForm,
   TitleForm,
   BoxForm,
-  Box,
   LabelForm,
   InputForm,
   FileForm,
@@ -22,15 +21,13 @@ const AddProduct = () => {
     price: '',
     description: '',
     category: '',
-    error: ''
   });
   const [submit, setSubmit] = useState({});
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [pressKey, setPressKey] = useState(false)
+
 
   const handleChange = ({ target }) => {
-    setError(true)
     setProduct({
       ...product,
       [target.name]: target.value,
@@ -93,18 +90,6 @@ const AddProduct = () => {
   };
   console.log(submit);
 
-  const handleKeyPress = (e) => {
-    if(e.type === "keypress"){
-      setPressKey(true);
-    }
-  }
-
-  const handleKeyUp = (e) => {
-    if(e.code === "Backspace"){
-      setPressKey(false);
-    }
-  }
-
   useEffect(() => {
     if (error) {
       setTimeout(() => {
@@ -151,8 +136,6 @@ const AddProduct = () => {
             type="text"
             list="category"
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
-            onKeyUp={handleKeyUp}
             name="category"
           />
           <datalist id="category">
@@ -160,21 +143,12 @@ const AddProduct = () => {
               <option key={key} value={section} />
             ))}
           </datalist>
-          {
-            pressKey &&
-            (
-              <>
-                <LabelForm htmlFor="imgSection">Imagen Categoría</LabelForm>
-                <FileForm id="imgSection" type="file" onChange={handleChange} name="imgSection" />
-              </>
-            )
-            
-          }
+
 
           <FormButton>Agregar</FormButton>
         </BoxForm>
 
-        {error && <ErrorMessageForm>{product.error}</ErrorMessageForm>}
+        {error && <ErrorMessageForm>{errorMsg}</ErrorMessageForm>}
       </ContainerForm>
     </>
   );
