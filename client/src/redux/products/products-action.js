@@ -36,10 +36,10 @@ const productAdd = (product) => {
   }
 }
 
-const productDelete = (product) => {
+const productDelete = (id) => {
   return{
       type: PRODUCT_REMOVE,
-      payload: product,
+      payload: id,
   }
 }
 
@@ -69,11 +69,11 @@ export const addProductToDB = (product) => {
 }
 
 // borra a la collection de products un producto
-export const deleteProductToDB = (product) => { 
+export const deleteProductToDB = (id) => { 
   return async(dispatch) => {
     try {
-      const {data} = await axios.delete(`${ENDPOINT_PRODUCTS}:${product._id}`);
-      dispatch(productDelete(data))
+      await axios.delete(`${ENDPOINT_PRODUCTS}${id}`);
+      dispatch(productDelete(id));
     } catch (error) {
       dispatch(productsFail(`${error}`));         
     }
