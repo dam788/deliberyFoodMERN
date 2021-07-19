@@ -16,3 +16,16 @@ export const getOneProduct = asyncHandler(async (req:Request, res:Response): Pro
     res.status(404).json({ msg: 'product not found' });
   }
 });
+
+export const postProduct = asyncHandler(async (req:Request, res:Response): Promise<void> => {
+  const product = new Product({
+    ...req.body,
+  });
+  const newProduct = await product.save();
+  res.json(newProduct);
+});
+
+export const deleteProduct = asyncHandler(async (req:Request, res:Response): Promise<void> => {
+  const removeProduct = await Product.remove({_id: req.params.id})
+  res.json(removeProduct)
+});

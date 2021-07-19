@@ -3,6 +3,8 @@ import {
   PRODUCTS_REQUEST,
   PRODUCTS_SUCCESS,
   PRODUCTS_FAIL,
+  PRODUCT_ADD,
+  PRODUCT_REMOVE
 } from './products-action';
 
 const INITIAL_STATE = {
@@ -31,6 +33,16 @@ const productsReducer = (state = INITIAL_STATE, { type, payload }) => {
         foods: [],
         error: payload,
       };
+      case PRODUCT_ADD:
+        return{
+          ...state,
+          foods: [...state.foods, payload]
+        }
+      case PRODUCT_REMOVE:
+        return {
+          ...state,
+          foods: state.foods.filter(food => food._id !== payload._id)
+        }
 
     default:
       return state;

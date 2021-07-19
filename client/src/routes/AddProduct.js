@@ -12,8 +12,13 @@ import {
 } from '../Styles/formStyles';
 import { useSelector } from 'react-redux';
 import { capitalizeAll, capitalizeOne } from '../utils/capitalize';
+import {useDispatch} from 'react-redux';
+import {addProductToDB} from '../redux/products/products-action';
+
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
+
   const categories = useSelector((state) => state.categories.categories);
   const [product, setProduct] = useState({
     name: '',
@@ -22,7 +27,6 @@ const AddProduct = () => {
     description: '',
     category: '',
   });
-  const [submit, setSubmit] = useState({});
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -34,12 +38,9 @@ const AddProduct = () => {
     });
   };
 
-
-  const {name, img, price, description, category} = product
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const { name, img, price, description, category } = input;
+    const { name, img, price, description, category } = product;
 
     // validar nombre
     if (name.length < 2 || name.length > 20) {
@@ -86,9 +87,9 @@ const AddProduct = () => {
     setError(false);
     setErrorMsg('');
 
-    setSubmit(product);
+    // finalmente pasamos a redux
+    dispatch(addProductToDB(product))
   };
-  console.log(submit);
 
   useEffect(() => {
     if (error) {
