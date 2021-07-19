@@ -11,9 +11,14 @@ import {
   ErrorMessageForm,
 } from '../Styles/formStyles';
 import { useSelector } from 'react-redux';
-import { capitalizeAll, capitalizeOne } from '../utils/capitalize';
+// import { capitalizeAll, capitalizeOne } from '../utils/capitalize';
+import { useDispatch } from 'react-redux';
+import { addProductToDB } from '../redux/products/products-action';
+import Swal from 'sweetalert2';
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
+
   const categories = useSelector((state) => state.categories.categories);
   const [product, setProduct] = useState({
     name: '',
@@ -22,10 +27,9 @@ const AddProduct = () => {
     description: '',
     category: '',
   });
-  const [submit, setSubmit] = useState({});
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-
+  const [redirect, setRedirect] = useState(false);
 
   const handleChange = ({ target }) => {
     setProduct({
@@ -34,12 +38,9 @@ const AddProduct = () => {
     });
   };
 
-
-  const {name, img, price, description, category} = product
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const { name, img, price, description, category } = input;
+    const { name, img, price, description, category } = product;
 
     // validar nombre
     if (name.length < 2 || name.length > 20) {
@@ -72,23 +73,33 @@ const AddProduct = () => {
     }
 
     // capitalize
-    let capitalizeCategory = capitalizeAll(category);
-    let nameCapitalize = capitalizeAll(name);
-    let descriptionCapitalize = capitalizeOne(description);
-    setProduct({
-      ...product,
-      name: nameCapitalize,
-      category: capitalizeCategory,
-      description: descriptionCapitalize,
-    });
+    // let capitalizeCategory = capitalizeAll(category);
+    // let nameCapitalize = capitalizeAll(name);
+    // let descriptionCapitalize = capitalizeOne(description);
+    // setProduct({
+    //   ...product,
+    //   name: nameCapitalize,
+    //   category: capitalizeCategory,
+    //   description: descriptionCapitalize,
+    // });
 
     // si pasa todo esto...
     setError(false);
     setErrorMsg('');
 
-    setSubmit(product);
+    // finalmente pasamos a redux
+    dispatch(addProductToDB(product));
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Su producto ha sido Agregado!',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    setRedirect(true);
+
+    
   };
-  console.log(submit);
 
   useEffect(() => {
     if (error) {
@@ -96,13 +107,19 @@ const AddProduct = () => {
         setError(false);
       }, 3000);
     }
-  }, [error]);
+    if(redirect){
+      setTimeout(() => {
+        setRedirect(false);
+        window.location = '/';
+      }, 2000);
+    }  
+  }, [error,redirect]);
 
   return (
     <>
       <ContainerForm onSubmit={handleSubmit}>
         <TitleForm>Nuevo Producto</TitleForm>
-        
+
         <BoxForm>
           <LabelForm htmlFor="name">Nombre</LabelForm>
           <InputForm
@@ -143,7 +160,6 @@ const AddProduct = () => {
               <option key={key} value={section} />
             ))}
           </datalist>
-
 
           <FormButton>Agregar</FormButton>
         </BoxForm>
