@@ -13,7 +13,8 @@ import {
 import { useSelector } from 'react-redux';
 // import { capitalizeAll, capitalizeOne } from '../utils/capitalize';
 import { useDispatch } from 'react-redux';
-import { addProductToDB } from '../redux/products/products-action';
+// import { addProductToDB } from '../redux/products/products-action';
+import {addCategoriesToDB} from '../redux/categories/categories-action'
 import Swal from 'sweetalert2';
 
 const AddProduct = () => {
@@ -88,17 +89,17 @@ const AddProduct = () => {
     setErrorMsg('');
 
     // finalmente pasamos a redux
-    dispatch(addProductToDB(product));
+    // dispatch(addProductToDB(product));
+    dispatch(addCategoriesToDB(product.category));
+
     Swal.fire({
       position: 'center',
       icon: 'success',
       title: 'Su producto ha sido Agregado!',
       showConfirmButton: false,
-      timer: 2000
-    })
-    setRedirect(true);
-
-    
+      timer: 2000,
+    });
+    // setRedirect(true);
   };
 
   useEffect(() => {
@@ -107,13 +108,13 @@ const AddProduct = () => {
         setError(false);
       }, 3000);
     }
-    if(redirect){
+    if (redirect) {
       setTimeout(() => {
         setRedirect(false);
         window.location = '/';
       }, 2000);
-    }  
-  }, [error,redirect]);
+    }
+  }, [error, redirect]);
 
   return (
     <>

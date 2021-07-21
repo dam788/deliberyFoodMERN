@@ -5,7 +5,7 @@ export interface IProduct extends Document {
   img: string;
   price: number;
   description: string;
-  category: string;
+  section: string;
   timestamps: Date;
 }
 
@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema<IProduct>({
     min: 6,
     max: 140,
   },
-  category: {
+  section: {
     type: String,
     required: true,
     ref: 'Category'

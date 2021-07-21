@@ -11,7 +11,7 @@ export const getAllCategories = asyncHandler(
   
   export const postNewCategory = asyncHandler(
     async (req: Request, res: Response): Promise<void> => {
-      const { section, icon } = req.body;
+      const { section } = req.body;
   
       const categoryExists = await Category.findOne({ section });
   
@@ -22,7 +22,6 @@ export const getAllCategories = asyncHandler(
   
       const newCategory = await Category.create({
         section,
-        icon,
       });
       console.log(newCategory);
       if (newCategory) {

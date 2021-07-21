@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const ENDPOINT_CATEGORIES = '/api/categories';
+const ENDPOINT_CATEGORIES = '/api/categories/';
 export const CATEGORIES_REQUEST = 'CATEGORIES_REQUEST';
 export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
 export const CATEGORIES_FAIL = 'CATEGORIES_FAIL';
+export const CATEGORIES_ADD = 'CATEGORIES_ADD';
 
 export const categoriesRequest = () => {
   return {
@@ -25,6 +26,14 @@ export const categoriesFail = (error) => {
   };
 };
 
+const categorytAdd = (category) => {
+  return{
+      type: CATEGORIES_ADD,
+      payload: category,
+  }
+}
+
+
 export const fetchCategories = () => async (dispatch) => {
   dispatch(categoriesRequest());
   try {
@@ -35,3 +44,15 @@ export const fetchCategories = () => async (dispatch) => {
     dispatch(categoriesFail(`${error}`));
   }
 };
+
+// agrega a la collection de categories un producto
+export const addCategoriesToDB = (category) => { 
+  return async(dispatch) => {
+    try {
+      const {data} = await axios.post(ENDPOINT_CATEGORIES, category);
+      dispatch(categorytAdd(data));
+    } catch (error) {
+      dispatch(categoriesFail(`${error}`));     
+    }
+  }
+}

@@ -2,6 +2,7 @@ import {
   CATEGORIES_REQUEST,
   CATEGORIES_SUCCESS,
   CATEGORIES_FAIL,
+  CATEGORIES_ADD,
 } from './categories-action';
 
 const INITIAL_STATE = {
@@ -31,6 +32,12 @@ const categoriesReducer = (state = INITIAL_STATE, { type, payload }) => {
         load: false,
         categories: [],
         error: payload,
+      };
+      
+    case CATEGORIES_ADD:
+      return {
+        ...state,
+        // categories: [...state.categories, payload],
       };
 
     default:
