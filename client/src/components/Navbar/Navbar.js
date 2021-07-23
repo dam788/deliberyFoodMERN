@@ -38,8 +38,8 @@ const NaviagationMenu = styled.nav`
 `;
 
 const Navbar = ({ history, activeUser, setActiveUser, user, setUser }) => {
- console.log(user);
- 
+  //  console.log(user);
+
   const LinkButton =
     history.location.pathname === '/login' ? (
       <Link to="/">
@@ -51,10 +51,9 @@ const Navbar = ({ history, activeUser, setActiveUser, user, setUser }) => {
       </Link>
     );
 
-
   const cerrarSesion = () => {
     setActiveUser(false);
-    localStorage.removeItem('usuario')
+    localStorage.removeItem('usuario');
     history.push('/login');
   };
 
@@ -67,14 +66,15 @@ const Navbar = ({ history, activeUser, setActiveUser, user, setUser }) => {
         <NaviagationMenu>
           {activeUser ? (
             <>
-            {
-              user.isAdmin &&  <Link to="/addproduct">
-                <AddProduct />
-              </Link>
-            }
-             
+              {user.isAdmin && (
+                <Link to="/addproduct">
+                  <AddProduct />
+                </Link>
+              )}
+
               <p>hola, {user.nombre}</p>
-              <CartIcon />
+
+              {history.location.pathname === '/checkout' ? null : <CartIcon />}
 
               <UserNav onClick={cerrarSesion}>X</UserNav>
             </>

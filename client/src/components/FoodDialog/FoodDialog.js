@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FoodLabel } from '../Menu/FoodGrid';
 import { Title } from '../../Styles/Title';
@@ -6,6 +6,7 @@ import { orange, magenta } from '../../Styles/colors';
 import { useDispatch } from 'react-redux';
 import { addItems } from '../../redux/cart/cart-action';
 import { formatPrice } from '../../utils/formatPrice';
+import { InputForm } from '../../Styles/formStyles';
 
 const Dialog = styled.div`
   width: 500px;
@@ -93,7 +94,24 @@ export const ConfirmButton = styled(Title)`
 `;
 
 function FoodDialogContainer({ openFood, setOpenFood }) {
+  const [hola, setHola] = useState(false);
   const dispatch = useDispatch();
+
+  const [product, setProduct] = useState({
+    name: '',
+    price: '',
+    desc: '',
+  });
+
+  // destructuring
+  const { name, price, desc } = product;
+
+  const handleChange = ({ target }) => {
+    setProduct({
+      ...product,
+      [target.name]: target.value,
+    });
+  };
 
   const handleClose = () => {
     setOpenFood();
@@ -108,17 +126,39 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
     <>
       <DialogShadow onClick={handleClose} />
       <Dialog>
-        <DialogBannerName>{openFood.name}</DialogBannerName>
+        {hola ? (
+          <DialogBannerName>
+            <InputForm  type="text" onChange={handleChange} />
+          </DialogBannerName>
+        ) : (
+          <DialogBannerName>{openFood.name}</DialogBannerName>
+        )}
+
         <DialogBanner img={`data:image/jpeg;base64,${openFood.img}`} />
         <DialogContent>
-          <p>
-            <b style={{ color: '#ec7538' }}>Descripción: </b>
-            {openFood.description}
-          </p>
-          <p>
-            <b style={{ color: '#ec7538' }}>Precio: </b>
-            {formatPrice(openFood.price)}
-          </p>
+          {hola ? (
+            <>
+              <p>
+                <b style={{ color: '#ec7538' }}>Descripción: </b>
+                <InputForm type="text" onChange={handleChange} />
+              </p>
+              <p>
+                <b style={{ color: '#ec7538' }}>Precio: </b>
+                <InputForm type="text" onChange={handleChange} />
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                <b style={{ color: '#ec7538' }}>Descripción: </b>
+                {openFood.description}
+              </p>
+              <p>
+                <b style={{ color: '#ec7538' }}>Precio: </b>
+                {formatPrice(openFood.price)}
+              </p>
+            </>
+          )}
         </DialogContent>
         <DialogFooter>
           <ConfirmButton onClick={addToOrder}>

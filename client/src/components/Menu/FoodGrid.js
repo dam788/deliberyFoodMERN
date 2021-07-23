@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Title } from '../../Styles/Title';
 import { FormButton } from '../../Styles/formStyles';
-import { white, gray } from '../../Styles/colors';
+import { white } from '../../Styles/colors';
 
 export const FoodGrid = styled.div`
   display: grid;

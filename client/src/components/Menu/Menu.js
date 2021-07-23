@@ -8,11 +8,11 @@ import {
   FoodLabel,
   FoodButton,
   FoodIcon,
-  FoodButtonEdit
+  FoodButtonEdit,
 } from './FoodGrid';
 import { TagsMenu, TagCard } from './MenuTags';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteProductToDB } from '../../redux/products/products-action';
+import { deleteProductToDB, getDataProductToDB } from '../../redux/products/products-action';
 import Swal from 'sweetalert2';
 
 const MenuStyled = styled.div`
@@ -43,6 +43,9 @@ const swalWithBootstrapButtons = Swal.mixin({
 export const Menu = ({ setOpenFood }) => {
   const dispatch = useDispatch();
   const [section, setSection] = useState(null);
+  const [editMode, setEditMode] = useState(false)
+
+  
   let Foods = useSelector((state) => state.products.foods);
   const categories = useSelector((state) => state.categories.categories);
 
@@ -77,7 +80,7 @@ export const Menu = ({ setOpenFood }) => {
 
   const handleEdit = (event, id) => {
     event.stopPropagation();
-    console.log(id);
+    dispatch(getDataProductToDB(id))
   };
 
   return (
@@ -110,30 +113,26 @@ export const Menu = ({ setOpenFood }) => {
 
         <FoodGrid>
           {Foods.map((food) => (
-            <>
-              <Food
-                key={food._id}
-                img={`data:image/jpeg;base64,${food.img}`}
-                onClick={() => setOpenFood(food)}
-              >
-                <FoodButton onClick={(event) => handleDelete(event, food._id)}>
-                  <FoodIcon className="fi-rs-trash"></FoodIcon>
-                </FoodButton>
+            <Food
+              key={food._id}
+              img={`data:image/jpeg;base64,${food.img}`}
+              onClick={() => setOpenFood(food)}
+            >
+              <FoodButton onClick={(event) => handleDelete(event, food._id)}>
+                <FoodIcon className="fi-rs-trash"></FoodIcon>
+              </FoodButton>
 
-                <FoodButtonEdit
-                  onClick={(event) => handleEdit(event, food._id)}
-                >
-                  <FoodIcon className="fi-rs-pencil"></FoodIcon>
-                </FoodButtonEdit>
+              <FoodButtonEdit onClick={(event) => handleEdit(event, food._id)}>
+                <FoodIcon className="fi-rs-pencil"></FoodIcon>
+              </FoodButtonEdit>
 
-                <FoodLabel>
-                  <div>{food.name}</div>
-                  <div style={{ color: '#ec7538', fontWeight: 'bolder' }}>
-                    {formatPrice(food.price)}
-                  </div>
-                </FoodLabel>
-              </Food>
-            </>
+              <FoodLabel>
+                <div>{food.name}</div>
+                <div style={{ color: '#ec7538', fontWeight: 'bolder' }}>
+                  {formatPrice(food.price)}
+                </div>
+              </FoodLabel>
+            </Food>
           ))}
         </FoodGrid>
       </MenuStyled>

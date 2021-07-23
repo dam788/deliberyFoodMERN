@@ -6,6 +6,7 @@ export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
 export const PRODUCTS_FAIL = 'PRODUCTS_FAIL';
 export const PRODUCT_ADD = 'PRODUCT_ADD';
 export const PRODUCT_REMOVE = 'PRODUCT_REMOVE';
+export const PRODUCT_EDIT = 'PRODUCT_EDIT';
 
 
 // levanta la db collection  de products
@@ -42,6 +43,12 @@ const productDelete = (id) => {
       payload: id,
   }
 }
+const productEdit = (id) => {
+  return{
+      type: PRODUCT_EDIT,
+      payload: id,
+  }
+}
 
 // encargada de ejecutar la base de datos...
 export const fetchProducts = () => async (dispatch) => {
@@ -74,6 +81,20 @@ export const deleteProductToDB = (id) => {
     try {
       await axios.delete(`${ENDPOINT_PRODUCTS}${id}`);
       dispatch(productDelete(id));
+    } catch (error) {
+      dispatch(productsFail(`${error}`));         
+    }
+  }
+}
+
+//edita producto
+export const getDataProductToDB = (data) => {
+  return async(dispatch) => {
+    // console.log(data)
+    try {
+     const res= await axios.get(`${ENDPOINT_PRODUCTS}${data}`)
+      dispatch(productEdit(res.data))
+      
     } catch (error) {
       dispatch(productsFail(`${error}`));         
     }

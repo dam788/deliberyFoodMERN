@@ -59,9 +59,7 @@ function App() {
           <Route exact path='/login'>
           <Register activeUser={activeUser} setActiveUser={setActiveUser} user={user} setUser={setUser} />
           </Route>
-          {/* <Route exact path='/register'>
-            <Register activeUser={activeUser} setActiveUser={setActiveUser} user={user} setUser={setUser} />
-          </Route> */}
+       
           {!activeUser ? <Redirect to="/login" /> : <AddProduct activeUser={activeUser} setActiveUser={setActiveUser}/>}
         </Switch>
       </Router>
