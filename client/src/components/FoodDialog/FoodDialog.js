@@ -94,7 +94,7 @@ export const ConfirmButton = styled(Title)`
 `;
 
 function FoodDialogContainer({ openFood, setOpenFood }) {
-  const [hola, setHola] = useState(false);
+  const [hola, setHola] = useState(true);
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState({
