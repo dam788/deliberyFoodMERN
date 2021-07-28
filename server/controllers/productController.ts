@@ -25,7 +25,23 @@ export const postProduct = asyncHandler(async (req:Request, res:Response): Promi
   res.json(newProduct);
 });
 
+export const patchProduct = asyncHandler(async (req:Request, res:Response):Promise<void> => {
+  try {
+    const updateProduct = await Product.updateOne(
+      {_id: req.params.id},
+      { $set: {...req.body}}
+    )
+    res.json(updateProduct)
+  } catch (error) {
+    res.status(404).json({ msg: 'product not found' });
+  }
+})
+
 export const deleteProduct = asyncHandler(async (req:Request, res:Response): Promise<void> => {
   const removeProduct = await Product.remove({_id: req.params.id})
   res.json(removeProduct)
 });
+
+
+
+
