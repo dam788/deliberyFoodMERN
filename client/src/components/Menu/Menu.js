@@ -12,7 +12,10 @@ import {
 } from './FoodGrid';
 import { TagsMenu, TagCard } from './MenuTags';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteProductToDB, getDataProductToDB } from '../../redux/products/products-action';
+import {
+  deleteProductToDB,
+  getDataProductToDB,
+} from '../../redux/products/products-action';
 import Swal from 'sweetalert2';
 
 const MenuStyled = styled.div`
@@ -43,9 +46,8 @@ const swalWithBootstrapButtons = Swal.mixin({
 export const Menu = ({ setOpenFood }) => {
   const dispatch = useDispatch();
   const [section, setSection] = useState(null);
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(false);
 
-  
   let Foods = useSelector((state) => state.products.foods);
   const categories = useSelector((state) => state.categories.categories);
 
@@ -78,9 +80,10 @@ export const Menu = ({ setOpenFood }) => {
       });
   };
 
-  const handleEdit = (event, id) => {
+  const handleEdit = (event, food) => {
     event.stopPropagation();
-    dispatch(getDataProductToDB(id))
+    dispatch(getDataProductToDB(food._id));
+    console.log(food);
   };
 
   return (
@@ -122,7 +125,7 @@ export const Menu = ({ setOpenFood }) => {
                 <FoodIcon className="fi-rs-trash"></FoodIcon>
               </FoodButton>
 
-              <FoodButtonEdit onClick={(event) => handleEdit(event, food._id)}>
+              <FoodButtonEdit onClick={(event) => handleEdit(event, food)}>
                 <FoodIcon className="fi-rs-pencil"></FoodIcon>
               </FoodButtonEdit>
 

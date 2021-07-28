@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FoodLabel } from '../Menu/FoodGrid';
 import { Title } from '../../Styles/Title';
@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addItems } from '../../redux/cart/cart-action';
 import { formatPrice } from '../../utils/formatPrice';
 import { InputForm } from '../../Styles/formStyles';
+import { productEdit } from '../../redux/products/products-action';
 
 const Dialog = styled.div`
   width: 500px;
@@ -94,8 +95,20 @@ export const ConfirmButton = styled(Title)`
 `;
 
 function FoodDialogContainer({ openFood, setOpenFood }) {
-  const [hola, setHola] = useState(true);
+  const [onEdit, setOnEdit] = useState(true);
   const dispatch = useDispatch();
+
+
+      console.log(productEdit) 
+// 
+  // useEffect(() => {
+  //   food &&
+  //     setProduct({
+  //       name: food.name,
+  //       price: food.price,
+  //       desc: food.description,
+  //     });
+  // }, []);
 
   const [product, setProduct] = useState({
     name: '',
@@ -122,13 +135,18 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
     handleClose();
   };
 
+  const modify = (product) => {
+    console.log(`modificado`);
+    // dispatch(updateDataOnDB(product))
+  };
+
   return (
     <>
       <DialogShadow onClick={handleClose} />
       <Dialog>
-        {hola ? (
+        {onEdit ? (
           <DialogBannerName>
-            <InputForm  type="text" onChange={handleChange} />
+            <InputForm type="text" onChange={handleChange} />
           </DialogBannerName>
         ) : (
           <DialogBannerName>{openFood.name}</DialogBannerName>
@@ -136,7 +154,7 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
 
         <DialogBanner img={`data:image/jpeg;base64,${openFood.img}`} />
         <DialogContent>
-          {hola ? (
+          {onEdit ? (
             <>
               <p>
                 <b style={{ color: '#ec7538' }}>Descripción: </b>
@@ -161,9 +179,13 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
           )}
         </DialogContent>
         <DialogFooter>
-          <ConfirmButton onClick={addToOrder}>
-            agregar {openFood.name}
-          </ConfirmButton>
+          {onEdit ? (
+            <ConfirmButton onClick={modify}>Modificar</ConfirmButton>
+          ) : (
+            <ConfirmButton onClick={addToOrder}>
+              agregar {openFood.name}
+            </ConfirmButton>
+          )}
         </DialogFooter>
       </Dialog>
     </>

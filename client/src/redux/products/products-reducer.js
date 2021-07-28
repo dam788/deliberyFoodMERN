@@ -4,12 +4,14 @@ import {
   PRODUCTS_FAIL,
   PRODUCT_ADD,
   PRODUCT_REMOVE,
+  PRODUCT_EDIT,
 } from './products-action';
 
 const INITIAL_STATE = {
   foods: [],
   error: null,
   load: false,
+  toEdit: {}
 };
 
 const productsReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -41,6 +43,11 @@ const productsReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         foods: state.foods.filter((food) => food._id !== payload),
+      };
+    case PRODUCT_EDIT:
+      return {
+        ...state,
+        toEdit: payload,
       };
 
     default:

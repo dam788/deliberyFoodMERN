@@ -8,7 +8,6 @@ export const PRODUCT_ADD = 'PRODUCT_ADD';
 export const PRODUCT_REMOVE = 'PRODUCT_REMOVE';
 export const PRODUCT_EDIT = 'PRODUCT_EDIT';
 
-
 // levanta la db collection  de products
 const productsRequest = () => {
   return {
@@ -31,32 +30,33 @@ const productsFail = (error) => {
 };
 
 const productAdd = (product) => {
-  return{
-      type: PRODUCT_ADD,
-      payload: product,
-  }
-}
+  return {
+    type: PRODUCT_ADD,
+    payload: product,
+  };
+};
 
 const productDelete = (id) => {
-  return{
-      type: PRODUCT_REMOVE,
-      payload: id,
-  }
-}
-const productEdit = (id) => {
-  return{
-      type: PRODUCT_EDIT,
-      payload: id,
-  }
-}
+  return {
+    type: PRODUCT_REMOVE,
+    payload: id,
+  };
+};
+
+export const productEdit = (product) => {
+  return {
+    type: PRODUCT_EDIT,
+    payload: product,
+  };
+};
 
 // encargada de ejecutar la base de datos...
 export const fetchProducts = () => async (dispatch) => {
   dispatch(productsRequest());
-  
+
   try {
     const { data } = await axios.get(ENDPOINT_PRODUCTS);
-    
+
     dispatch(productsSuccess(data));
   } catch (error) {
     dispatch(productsFail(`${error}`));
@@ -64,39 +64,49 @@ export const fetchProducts = () => async (dispatch) => {
 };
 
 // agrega a la collection de products un producto
-export const addProductToDB = (product) => { 
-  return async(dispatch) => {
+export const addProductToDB = (product) => {
+  return async (dispatch) => {
     try {
-      const {data} = await axios.post(ENDPOINT_PRODUCTS, product);
-      dispatch(productAdd(data))
+      const { data } = await axios.post(ENDPOINT_PRODUCTS, product);
+      dispatch(productAdd(data));
     } catch (error) {
-      dispatch(productsFail(`${error}`));     
+      dispatch(productsFail(`${error}`));
     }
-  }
-}
+  };
+};
 
 // borra a la collection de products un producto
-export const deleteProductToDB = (id) => { 
-  return async(dispatch) => {
+export const deleteProductToDB = (id) => {
+  return async (dispatch) => {
     try {
       await axios.delete(`${ENDPOINT_PRODUCTS}${id}`);
       dispatch(productDelete(id));
     } catch (error) {
-      dispatch(productsFail(`${error}`));         
+      dispatch(productsFail(`${error}`));
     }
-  }
-}
+  };
+};
 
 //edita producto
 export const getDataProductToDB = (data) => {
-  return async(dispatch) => {
-    // console.log(data)
+  return async (dispatch) => {
     try {
-     const res= await axios.get(`${ENDPOINT_PRODUCTS}${data}`)
-      dispatch(productEdit(res.data))
-      
+      const res = await axios.get(`${ENDPOINT_PRODUCTS}${data}`);
+      dispatch(productEdit(res.data));
+      console.log(res.data);
     } catch (error) {
-      dispatch(productsFail(`${error}`));         
+      dispatch(productsFail(`${error}`));
     }
-  }
-}
+  };
+};
+
+export const updateDataOnDB = (product) => {
+  return async (dispatch) => {
+    try {
+      await axios.patch(ENDPOINT_PRODUCTS, product);
+    } catch (error) {
+      dispatch(productsFail(`${error}`));
+    }
+  };
+};
+
