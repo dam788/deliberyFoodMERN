@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { FoodLabel } from '../Menu/FoodGrid';
 import { Title } from '../../Styles/Title';
 import { orange, magenta } from '../../Styles/colors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItems } from '../../redux/cart/cart-action';
 import { formatPrice } from '../../utils/formatPrice';
 import { InputForm } from '../../Styles/formStyles';
-import { productEdit } from '../../redux/products/products-action';
 
 const Dialog = styled.div`
   width: 500px;
@@ -97,18 +96,7 @@ export const ConfirmButton = styled(Title)`
 function FoodDialogContainer({ openFood, setOpenFood }) {
   const [onEdit, setOnEdit] = useState(true);
   const dispatch = useDispatch();
-
-
-      console.log(productEdit) 
-// 
-  // useEffect(() => {
-  //   food &&
-  //     setProduct({
-  //       name: food.name,
-  //       price: food.price,
-  //       desc: food.description,
-  //     });
-  // }, []);
+  const productToEdit = useSelector(({products})=> products.toEdit)
 
   const [product, setProduct] = useState({
     name: '',
@@ -116,8 +104,16 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
     desc: '',
   });
 
-  // destructuring
-  const { name, price, desc } = product;
+  console.log(openFood)
+
+  useEffect(() => {
+    productToEdit.length !== 0 &&
+    setProduct({
+      name: productToEdit.name,
+      price: productToEdit.price,
+      desc: productToEdit.description,
+    })  
+  }, [productToEdit])
 
   const handleChange = ({ target }) => {
     setProduct({
@@ -146,7 +142,7 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
       <Dialog>
         {onEdit ? (
           <DialogBannerName>
-            <InputForm type="text" onChange={handleChange} />
+            <InputForm type="text" name="name" onChange={handleChange} value={product.name}/>
           </DialogBannerName>
         ) : (
           <DialogBannerName>{openFood.name}</DialogBannerName>
@@ -158,11 +154,11 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
             <>
               <p>
                 <b style={{ color: '#ec7538' }}>Descripción: </b>
-                <InputForm type="text" onChange={handleChange} />
+                <InputForm type="text" name="desc" onChange={handleChange} value={product.desc}/>
               </p>
               <p>
                 <b style={{ color: '#ec7538' }}>Precio: </b>
-                <InputForm type="text" onChange={handleChange} />
+                <InputForm type="text" name="price" onChange={handleChange} value={product.price}/>
               </p>
             </>
           ) : (

@@ -93,7 +93,6 @@ export const getDataProductToDB = (data) => {
     try {
       const res = await axios.get(`${ENDPOINT_PRODUCTS}${data}`);
       dispatch(productEdit(res.data));
-      console.log(res.data);
     } catch (error) {
       dispatch(productsFail(`${error}`));
     }

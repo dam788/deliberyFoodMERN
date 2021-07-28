@@ -82,8 +82,8 @@ export const Menu = ({ setOpenFood }) => {
 
   const handleEdit = (event, food) => {
     event.stopPropagation();
+    setOpenFood(food)
     dispatch(getDataProductToDB(food._id));
-    console.log(food);
   };
 
   return (
