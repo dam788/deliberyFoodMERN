@@ -88,21 +88,24 @@ export const deleteProductToDB = (id) => {
 };
 
 //edita producto
-export const getDataProductToDB = (data) => {
+export const getDataProductToDB = (id) => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`${ENDPOINT_PRODUCTS}${data}`);
-      dispatch(productEdit(res.data));
+      const res = await axios.get(`${ENDPOINT_PRODUCTS}${id}`);
+      console.log('getDataProductToDB',res.data)
+      // dispatch(productEdit(res.data));
     } catch (error) {
       dispatch(productsFail(`${error}`));
     }
   };
 };
 
-export const updateDataOnDB = (product) => {
+export const updateDataOnDB = (data) => {
   return async (dispatch) => {
     try {
-      await axios.patch(ENDPOINT_PRODUCTS, product);
+      await axios.patch(ENDPOINT_PRODUCTS, data);
+      console.log('updateDataOnDB',data)
+
     } catch (error) {
       dispatch(productsFail(`${error}`));
     }
