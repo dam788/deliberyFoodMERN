@@ -5,13 +5,14 @@ import {
   PRODUCT_ADD,
   PRODUCT_REMOVE,
   PRODUCT_EDIT,
+  PRODUCT_UPDATE,
 } from './products-action';
 
 const INITIAL_STATE = {
   foods: [],
   error: null,
   load: false,
-  toEdit: {}
+  toEdit: {},
 };
 
 const productsReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -48,6 +49,14 @@ const productsReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         toEdit: payload,
+      };
+    case PRODUCT_UPDATE:
+      console.log(payload)
+      return {
+        ...state,
+        // foods: state.foods.filter((food) =>
+        //   food._id === payload.id ? payload : state
+        // )
       };
 
     default:

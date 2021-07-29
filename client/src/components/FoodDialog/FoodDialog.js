@@ -112,7 +112,7 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
         price: productToEdit.price,
         desc: productToEdit.description,
       });
-  }, [productToEdit]);
+  }, [productToEdit.description, productToEdit.length, productToEdit.name, productToEdit.price]);
 
   const handleChange = ({ target }) => {
     setProduct({
@@ -131,7 +131,7 @@ function FoodDialogContainer({ openFood, setOpenFood }) {
   };
 
   const handleUpdate = () => {
-    dispatch(updateDataOnDB(product));
+    dispatch(updateDataOnDB(productToEdit._id, product));
   };
 
   return (
